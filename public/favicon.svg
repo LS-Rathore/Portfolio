@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="100%" height="100%">
+  <!-- Background Card Container -->
+  <rect x="8" y="8" width="112" height="112" rx="16" fill="#F5F0DF" stroke="#241A12" stroke-width="10" />
+  
+  <!-- Shadow offset -->
+  <rect x="18" y="18" width="92" height="92" rx="10" fill="#241A12" />
+  <rect x="12" y="12" width="92" height="92" rx="10" fill="#FBF8EF" stroke="#241A12" stroke-width="6" />
+
+  <!-- Accent Lime Badge Bar -->
+  <rect x="22" y="24" width="72" height="12" fill="#B7D62A" stroke="#241A12" stroke-width="3" />
+
+  <!-- LSR_ Text in JetBrains Mono / Space Grotesk Style -->
+  <text x="58" y="84" font-family="'JetBrains Mono', monospace, sans-serif" font-weight="900" font-size="34" fill="#241A12" text-anchor="middle" letter-spacing="-1">LSR_</text>
+</svg>

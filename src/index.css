@@ -1,0 +1,144 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg: #F5F0DF;
+    --card: #FBF8EF;
+    --ink: #2A2118;
+    --muted: #6b5f4e;
+    --dot: rgba(42, 33, 24, 0.16);
+    --cobalt: #2A3AFF;
+    --magenta: #E8397E;
+    --acid: #B7D62A;
+    --bw: 3px;
+    --shadow: 8px 8px 0px 0px var(--ink);
+    --shadow-sm: 4px 4px 0px 0px var(--ink);
+
+    --background: var(--bg);
+    --foreground: var(--ink);
+  }
+
+  .dark {
+    --bg: #241A12;
+    --card: #2E2218;
+    --ink: #F1E6D3;
+    --muted: #b9ac95;
+    --dot: rgba(241, 230, 211, 0.09);
+    --cobalt: #7C8CFF;
+    --magenta: #FF6FAE;
+    --acid: #D4F26A;
+
+    --background: var(--bg);
+    --foreground: var(--ink);
+  }
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border-color: var(--ink);
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    background-color: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    transition: background-color 0.25s ease, color 0.25s ease;
+    background-image: radial-gradient(circle, var(--dot) 1.3px, transparent 1.8px);
+    background-size: 22px 22px;
+    background-attachment: fixed;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: var(--acid);
+    color: var(--ink);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', sans-serif;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+  }
+
+  .mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .font-space {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .font-sans {
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+  border-left: 2px solid var(--ink);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--ink);
+  border: 1px solid var(--bg);
+}
+
+/* Custom shadow utilities matching HTML mockup */
+.box-shadow-main {
+  box-shadow: var(--shadow);
+}
+
+.box-shadow-sm {
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-brutal {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 13.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 12px 20px;
+  border: 3px solid var(--ink);
+  background: var(--card);
+  box-shadow: 4px 4px 0px 0px var(--ink);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.btn-brutal:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 8px 8px 0px 0px var(--ink);
+}
+
+.btn-brutal:active {
+  transform: translate(0, 0);
+  box-shadow: none;
+}
+
+.btn-brutal-solid {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.btn-brutal-dashed {
+  border-style: dashed;
+}

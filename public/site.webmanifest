@@ -1,0 +1,17 @@
+{
+  "name": "L.S. Rathore — Full-Stack Developer",
+  "short_name": "LSR Portfolio",
+  "description": "Personal developer portfolio of L.S. Rathore — Full-Stack MERN & AI/RAG Developer.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F5F0DF",
+  "theme_color": "#241A12",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
