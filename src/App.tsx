@@ -9,7 +9,7 @@ import ContactSection from '@/components/Contact/ContactSection';
 
 export default function App() {
   return (
-    <ThemeProvider defaultTheme="dark" storageKey="ls-rathore-portfolio-theme">
+    <ThemeProvider defaultTheme="light" storageKey="ls-rathore-portfolio-theme">
       <div className="min-h-screen bg-background text-foreground selection:bg-foreground selection:text-background font-sans">
         <Navbar />
         <main>
