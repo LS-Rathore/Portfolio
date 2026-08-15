@@ -3,7 +3,8 @@ import { BookOpen, GraduationCap, Calendar } from 'lucide-react';
 import FadeIn from '../ui/FadeIn';
 import SectionReveal from '../ui/SectionReveal';
 import SectionMotion from '../ui/SectionMotion';
-import profileImg from '@/assets/profile.jpeg';
+
+const profileImg = '/profile.jpeg';
 
 export default function AboutSection() {
   const { personal, education } = PORTFOLIO_DATA;
