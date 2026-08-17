@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTheme } from '../Theme/ThemeProvider';
 import { Menu, X } from 'lucide-react';
 
@@ -13,6 +13,33 @@ const navItems = [
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
+
+  useEffect(() => {
+    const sectionIds = ['home', 'about', 'skills', 'experience', 'projects', 'contact'];
+    const observers: IntersectionObserver[] = [];
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setActiveSection(id);
+            }
+          });
+        },
+        { rootMargin: '-40% 0px -55% 0px', threshold: 0 }
+      );
+
+      observer.observe(el);
+      observers.push(observer);
+    });
+
+    return () => observers.forEach((obs) => obs.disconnect());
+  }, []);
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
@@ -26,6 +53,8 @@ export default function Navbar() {
       });
     }
   };
+
+  const isActive = (href: string) => `#${activeSection}` === href;
 
   return (
     <nav className="sticky top-0 z-50 bg-[var(--bg)] border-b-3 border-[var(--ink)] transition-colors duration-200">
@@ -50,9 +79,18 @@ export default function Navbar() {
                 key={item.label}
                 href={item.href}
                 onClick={(e) => scrollToSection(e, item.href)}
-                className="no-underline hover:text-[var(--magenta)] transition-colors"
+                className={`no-underline transition-all duration-200 relative py-1 ${
+                  isActive(item.href)
+                    ? 'text-[var(--magenta)]'
+                    : 'hover:text-[var(--magenta)]'
+                }`}
               >
                 {item.label}
+                <span
+                  className={`absolute left-0 -bottom-1 h-[3px] bg-[var(--magenta)] transition-all duration-300 ease-out ${
+                    isActive(item.href) ? 'w-full' : 'w-0'
+                  }`}
+                />
               </a>
             ))}
           </div>
@@ -86,7 +124,11 @@ export default function Navbar() {
               key={item.label}
               href={item.href}
               onClick={(e) => scrollToSection(e, item.href)}
-              className="block px-4 py-2 border-2 border-[var(--ink)] bg-[var(--bg)] hover:bg-[var(--ink)] hover:text-[var(--bg)] transition-colors"
+              className={`block px-4 py-2 border-2 border-[var(--ink)] transition-colors ${
+                isActive(item.href)
+                  ? 'bg-[var(--ink)] text-[var(--bg)] border-l-4 border-l-[var(--magenta)]'
+                  : 'bg-[var(--bg)] hover:bg-[var(--ink)] hover:text-[var(--bg)]'
+              }`}
             >
               {item.label}
             </a>

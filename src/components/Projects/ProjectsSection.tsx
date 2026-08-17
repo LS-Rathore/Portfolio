@@ -160,34 +160,49 @@ export default function ProjectsSection() {
       {/* Project Detail Animated Modal Popup */}
       <AnimatePresence>
         {selectedProject && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+            onClick={(e) => { if (e.target === e.currentTarget) setSelectedProject(null); }}
+          >
             <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              initial={{ opacity: 0, scale: 0.92, y: 30 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              transition={{ duration: 0.2, ease: 'easeOut' }}
-              className="bg-[var(--card)] border-3 border-[var(--ink)] box-shadow-main max-w-2xl w-full max-h-[90vh] overflow-y-auto text-[var(--ink)]"
+              exit={{ opacity: 0, scale: 0.92, y: 30 }}
+              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              className="bg-[var(--card)] border-3 border-[var(--ink)] box-shadow-main max-w-3xl w-full max-h-[90vh] overflow-y-auto text-[var(--ink)]"
+              style={{ scrollbarWidth: 'thin' }}
             >
               {/* Modal Header */}
               <div className="bg-[var(--ink)] text-[var(--bg)] px-6 py-3.5 flex items-center justify-between sticky top-0 z-10 mono">
-                <div className="flex items-center gap-2">
-                  <Sparkles className="size-4 text-[var(--acid)]" />
-                  <h3 className="font-space text-lg font-extrabold uppercase">
-                    {selectedProject.title} ({selectedProject.runTitle})
+                <div className="flex items-center gap-2 min-w-0">
+                  <Sparkles className="size-4 text-[var(--acid)] shrink-0" />
+                  <h3 className="font-space text-lg font-extrabold uppercase truncate">
+                    {selectedProject.title}
                   </h3>
+                  {selectedProject.badge && (
+                    <span className="px-2 py-0.5 bg-[var(--acid)] text-[var(--ink)] font-black text-[9px] uppercase border border-[var(--bg)] shrink-0">
+                      {selectedProject.badge}
+                    </span>
+                  )}
                 </div>
                 <button
                   onClick={() => setSelectedProject(null)}
-                  className="p-1 border-2 border-[var(--bg)] bg-[var(--bg)] text-[var(--ink)] hover:bg-[var(--magenta)] hover:text-white transition-colors cursor-pointer"
+                  className="p-1.5 border-2 border-[var(--bg)] bg-[var(--bg)] text-[var(--ink)] hover:bg-[var(--magenta)] hover:text-white transition-colors cursor-pointer shrink-0 ml-3"
                 >
                   <X className="size-4" />
                 </button>
               </div>
 
               {/* Modal Body */}
-              <div className="p-6 space-y-6 font-mono">
+              <div className="p-6 space-y-6">
+
+                {/* Description */}
                 <div>
-                  <span className="px-2.5 py-0.5 bg-[var(--acid)] text-[var(--ink)] font-bold text-xs uppercase border border-[var(--ink)] inline-block mb-3">
+                  <span className="px-2.5 py-0.5 bg-[var(--acid)] text-[var(--ink)] font-bold text-xs uppercase border border-[var(--ink)] inline-block mb-3 mono">
                     {selectedProject.category}
                   </span>
                   <p className="font-sans text-sm text-[var(--muted)] leading-relaxed">
@@ -195,29 +210,102 @@ export default function ProjectsSection() {
                   </p>
                 </div>
 
+                {/* Problem Statement */}
+                {selectedProject.problemStatement && (
+                  <div className="bg-[var(--bg)] border-2 border-[var(--ink)] p-4">
+                    <h4 className="mono text-xs font-bold uppercase tracking-wider text-[var(--magenta)] mb-2 flex items-center gap-2">
+                      <span className="w-2 h-2 bg-[var(--magenta)]" />
+                      Problem Statement
+                    </h4>
+                    <p className="font-sans text-sm text-[var(--ink)] leading-relaxed">
+                      {selectedProject.problemStatement}
+                    </p>
+                  </div>
+                )}
+
+                {/* Architecture */}
+                {selectedProject.architecture && selectedProject.architecture.length > 0 && (
+                  <div>
+                    <h4 className="mono text-xs font-bold uppercase tracking-wider border-b-2 border-[var(--ink)] pb-2 mb-3 text-[var(--ink)] flex items-center gap-2">
+                      <span className="w-2 h-2 bg-[var(--cobalt)]" />
+                      System Architecture
+                    </h4>
+                    <div className="space-y-1.5">
+                      {selectedProject.architecture.map((layer, i) => (
+                        <div key={i} className="flex items-start gap-2.5 font-sans text-sm text-[var(--ink)]">
+                          <span className="mono text-[10px] font-bold text-[var(--cobalt)] bg-[var(--bg)] border border-[var(--ink)] px-1.5 py-0.5 shrink-0 mt-0.5">
+                            L{i + 1}
+                          </span>
+                          <span>{layer}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Key Technical Features */}
                 <div>
-                  <h4 className="text-xs font-bold uppercase border-b-2 border-[var(--ink)] pb-2 mb-3 text-[var(--ink)]">
+                  <h4 className="mono text-xs font-bold uppercase tracking-wider border-b-2 border-[var(--ink)] pb-2 mb-3 text-[var(--ink)] flex items-center gap-2">
+                    <span className="w-2 h-2 bg-[var(--acid)]" />
                     Key Technical Features
                   </h4>
                   <ul className="space-y-2 font-sans text-sm text-[var(--ink)]">
                     {selectedProject.highlights.map((hl, i) => (
                       <li key={i} className="flex items-start gap-2.5">
-                        <CheckCircle className="size-4 shrink-0 text-[var(--acid)] mt-1" />
+                        <CheckCircle className="size-4 shrink-0 text-[var(--acid)] mt-0.5" />
                         <span>{hl}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
 
+                {/* Challenges Overcome */}
+                {selectedProject.challenges && selectedProject.challenges.length > 0 && (
+                  <div>
+                    <h4 className="mono text-xs font-bold uppercase tracking-wider border-b-2 border-[var(--ink)] pb-2 mb-3 text-[var(--ink)] flex items-center gap-2">
+                      <span className="w-2 h-2 bg-[var(--magenta)]" />
+                      Challenges Overcome
+                    </h4>
+                    <div className="space-y-3">
+                      {selectedProject.challenges.map((ch, i) => (
+                        <div key={i} className="flex items-start gap-2.5 font-sans text-sm text-[var(--ink)] bg-[var(--bg)] border-l-4 border-[var(--magenta)] pl-3 pr-3 py-2">
+                          <span className="mono text-[10px] font-bold text-[var(--magenta)] shrink-0 mt-0.5">0{i + 1}</span>
+                          <span>{ch}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Metrics Grid */}
+                {selectedProject.metrics && selectedProject.metrics.length > 0 && (
+                  <div>
+                    <h4 className="mono text-xs font-bold uppercase tracking-wider border-b-2 border-[var(--ink)] pb-2 mb-3 text-[var(--ink)] flex items-center gap-2">
+                      <span className="w-2 h-2 bg-[var(--ink)]" />
+                      Project Metrics
+                    </h4>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                      {selectedProject.metrics.map((m, i) => (
+                        <div key={i} className="bg-[var(--bg)] border-2 border-[var(--ink)] p-3 text-center">
+                          <span className="block font-space text-[18px] font-extrabold text-[var(--ink)]">{m.value}</span>
+                          <span className="block mono text-[9px] font-bold uppercase tracking-wider text-[var(--muted)] mt-1">{m.label}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Applied Technologies */}
                 <div>
-                  <h4 className="text-xs font-bold uppercase border-b-2 border-[var(--ink)] pb-2 mb-3 text-[var(--ink)]">
+                  <h4 className="mono text-xs font-bold uppercase tracking-wider border-b-2 border-[var(--ink)] pb-2 mb-3 text-[var(--ink)] flex items-center gap-2">
+                    <span className="w-2 h-2 bg-[var(--ink)]" />
                     Applied Technologies
                   </h4>
                   <div className="flex flex-wrap gap-2">
                     {selectedProject.tech.map((t, i) => (
                       <span
                         key={i}
-                        className="text-xs border-2 border-[var(--ink)] bg-[var(--bg)] px-2.5 py-1 font-semibold"
+                        className="mono text-xs border-2 border-[var(--ink)] bg-[var(--bg)] px-2.5 py-1 font-semibold"
                       >
                         {t}
                       </span>
@@ -226,7 +314,16 @@ export default function ProjectsSection() {
                 </div>
 
                 {/* Modal Footer */}
-                <div className="pt-4 border-t-3 border-[var(--ink)] flex items-center justify-end gap-3">
+                <div className="pt-4 border-t-3 border-[var(--ink)] flex items-center justify-between gap-3">
+                  {/* Status Indicator */}
+                  <div className="flex items-center gap-2">
+                    {selectedProject.status && (
+                      <span className="mono text-[11px] font-bold uppercase tracking-wider border-2 border-[var(--ink)] px-2.5 py-1 flex items-center gap-1.5">
+                        <span className={`w-2 h-2 rounded-full ${selectedProject.status.toLowerCase().includes('live') ? 'bg-[#27C93F] animate-pulse' : 'bg-[var(--acid)]'}`} />
+                        {selectedProject.status}
+                      </span>
+                    )}
+                  </div>
                   {selectedProject.github && (
                     <a
                       href={selectedProject.github}
@@ -254,7 +351,7 @@ export default function ProjectsSection() {
               </div>
 
             </motion.div>
-          </div>
+          </motion.div>
         )}
       </AnimatePresence>
 

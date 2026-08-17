@@ -12,6 +12,14 @@ export interface Project {
   live?: string;
   featured: boolean;
   badge?: string;
+  role?: string;
+  problemStatement?: string;
+  architecture?: string[];
+  challenges?: string[];
+  metrics?: { label: string; value: string }[];
+  duration?: string;
+  teamSize?: string;
+  status?: string;
 }
 
 export interface SkillCategory {
@@ -169,33 +177,39 @@ export const PORTFOLIO_DATA = {
 
   projects: [
     {
-      id: "opsmind-ai",
-      runTitle: "OpsMind AI // Enterprise RAG",
-      numIndex: "01",
-      title: "OpsMind AI",
-      category: "AI & RAG",
-      badge: "Enterprise RAG",
-      description: "Full-stack enterprise AI assistant for querying SOP documents (PDF/DOCX) via natural language using a RAG pipeline with LangChain and Google Gemini embeddings.",
-      longDescription: "OpsMind AI addresses document search challenges by converting corporate SOPs into high-density vector embeddings stored in MongoDB Atlas. Users get real-time SSE responses, hallucination detection, role-based workspace permissions, and a separate 10+ page admin dashboard.",
-      tech: ["React", "Node.js", "Express", "MongoDB", "LangChain", "Gemini API", "Vector Search"],
-      highlights: [
-        "Multi-format document ingestion (PDF/DOCX) with RAG pipeline via LangChain and Google Gemini embeddings.",
-        "MongoDB Atlas Vector Search across 5 database collections with real-time SSE response streaming.",
-        "Hallucination detection algorithms and JWT-based role-based access control (RBAC).",
-        "Comprehensive admin dashboard with analytics, audit logs, document management, and system health monitoring across 10+ pages."
-      ],
-      github: "https://github.com/LS-Rathore/OpsMind-Ai",
-      featured: true
-    },
-    {
       id: "tripzy-ai",
       runTitle: "Tripzy AI // Live Product",
-      numIndex: "02",
+      numIndex: "01",
       title: "Tripzy — AI Travel Planner",
       category: "Full-Stack & AI",
       badge: "Live Product",
       description: "Full-stack AI travel planner generating personalized day-by-day itineraries using a two-stage generation flow powered by Google Gemini 2.0 Flash with Groq fallback.",
       longDescription: "Tripzy lets travel enthusiasts generate customized multi-day itineraries in seconds. It features lightweight concept previews before full itinerary synthesis, Groq failover resilience, context-aware AI travel chatbot, and integrated squad expense splitting.",
+      role: "Solo Full-Stack Developer",
+      problemStatement: "Planning multi-day trips is tedious — travelers spend hours researching destinations, comparing options, and manually organizing schedules. Existing tools lack AI personalization and real-time collaboration features.",
+      architecture: [
+        "React + TypeScript SPA with component-driven architecture",
+        "Express.js API with modular route controllers",
+        "Prisma ORM with 7-model relational schema on PostgreSQL",
+        "Google Gemini 2.0 Flash primary AI with Groq Llama 3.3 failover",
+        "Two-stage generation: lightweight concepts → detailed itinerary",
+        "Context-aware chatbot with conversation memory",
+        "Vercel deployment with optimized build pipeline"
+      ],
+      challenges: [
+        "Designed a two-stage generation flow that first creates 3 lightweight concept previews, then synthesizes a full itinerary only after user selection — reducing API costs and improving UX.",
+        "Implemented Groq Llama 3.3 as an automatic failover when Gemini API hits rate limits, with seamless switching invisible to the user.",
+        "Built a 7-model relational schema with Prisma that handles complex relationships between trips, days, activities, expenses, and squad members."
+      ],
+      metrics: [
+        { label: "Prisma Models", value: "7" },
+        { label: "AI Models Used", value: "2" },
+        { label: "Deployment", value: "Vercel" },
+        { label: "Status", value: "Live" }
+      ],
+      duration: "5 weeks",
+      teamSize: "Solo",
+      status: "Live on Vercel",
       tech: ["React", "TypeScript", "Express", "PostgreSQL", "Prisma", "Google Gemini 2.0 Flash", "Groq Llama 3.3"],
       highlights: [
         "Two-stage AI generation flow (3 lightweight concepts -> full detailed itinerary) with Groq Llama 3.3 fallback resilience.",
@@ -208,6 +222,50 @@ export const PORTFOLIO_DATA = {
       featured: true
     },
     {
+      id: "opsmind-ai",
+      runTitle: "OpsMind AI // Enterprise RAG",
+      numIndex: "02",
+      title: "OpsMind AI",
+      category: "AI & RAG",
+      badge: "Enterprise RAG",
+      description: "Full-stack enterprise AI assistant for querying SOP documents (PDF/DOCX) via natural language using a RAG pipeline with LangChain and Google Gemini embeddings.",
+      longDescription: "OpsMind AI addresses document search challenges by converting corporate SOPs into high-density vector embeddings stored in MongoDB Atlas. Users get real-time SSE responses, hallucination detection, role-based workspace permissions, and a separate 10+ page admin dashboard.",
+      role: "Solo Full-Stack Developer & AI Engineer",
+      problemStatement: "Enterprises lose hundreds of hours per year searching through dense SOP documents manually. Employees struggle to find precise answers buried in PDFs and DOCX files, leading to operational delays and inconsistent compliance.",
+      architecture: [
+        "React SPA frontend with context-based state management",
+        "Express.js REST API backend with middleware pipeline",
+        "LangChain orchestration layer for RAG query processing",
+        "Google Gemini embedding model for document vectorization",
+        "MongoDB Atlas Vector Search with cosine similarity indexing",
+        "Server-Sent Events (SSE) for real-time response streaming",
+        "JWT + RBAC middleware for multi-role authentication"
+      ],
+      challenges: [
+        "Implemented hallucination detection by cross-referencing generated answers against source chunks' similarity scores, flagging low-confidence responses.",
+        "Optimized vector search across 5 MongoDB collections to maintain sub-second query latency even with large document corpora.",
+        "Built a chunking strategy that preserves document context across section boundaries for better retrieval accuracy."
+      ],
+      metrics: [
+        { label: "Database Collections", value: "5" },
+        { label: "Admin Dashboard Pages", value: "10+" },
+        { label: "Document Formats", value: "PDF & DOCX" },
+        { label: "Auth System", value: "JWT + RBAC" }
+      ],
+      duration: "6 weeks",
+      teamSize: "Solo",
+      status: "Completed",
+      tech: ["React", "Node.js", "Express", "MongoDB", "LangChain", "Gemini API", "Vector Search"],
+      highlights: [
+        "Multi-format document ingestion (PDF/DOCX) with RAG pipeline via LangChain and Google Gemini embeddings.",
+        "MongoDB Atlas Vector Search across 5 database collections with real-time SSE response streaming.",
+        "Hallucination detection algorithms and JWT-based role-based access control (RBAC).",
+        "Comprehensive admin dashboard with analytics, audit logs, document management, and system health monitoring across 10+ pages."
+      ],
+      github: "https://github.com/LS-Rathore/OpsMind-Ai",
+      featured: true
+    },
+    {
       id: "ai-caption-gen",
       runTitle: "AI Captions // GenAI",
       numIndex: "03",
@@ -216,6 +274,29 @@ export const PORTFOLIO_DATA = {
       badge: "Zero-Login Tool",
       description: "Zero-login AI web app that generates platform-optimized social media captions instantly from text prompts or uploaded photos using Gemini Flash & GPT-4o-mini.",
       longDescription: "Built for social media managers and creators, AI Caption Generator converts user prompts or image uploads into ready-to-post captions tailored for Instagram, LinkedIn, and Twitter.",
+      role: "Solo Developer",
+      problemStatement: "Content creators spend 15–30 minutes crafting platform-specific captions for each post. Each social platform has different conventions — hashtag density, tone, character limits — making it time-consuming to repurpose content across channels.",
+      architecture: [
+        "Next.js App Router with server-side API routes",
+        "Gemini Flash for image analysis and multimodal understanding",
+        "GPT-4o-mini for text-to-caption generation",
+        "Client-side state for zero-login stateless sessions",
+        "Tailwind CSS utility-first responsive design"
+      ],
+      challenges: [
+        "Implemented multimodal input handling that seamlessly switches between text prompts and image uploads, routing to the appropriate AI model.",
+        "Designed platform-specific prompt engineering templates that generate captions with correct tone, hashtag density, and formatting for each social platform.",
+        "Built a zero-authentication architecture for frictionless first-use while still maintaining session-based history tracking."
+      ],
+      metrics: [
+        { label: "Platforms Supported", value: "3" },
+        { label: "AI Models", value: "2" },
+        { label: "Auth Required", value: "None" },
+        { label: "Input Modes", value: "Text + Image" }
+      ],
+      duration: "2 weeks",
+      teamSize: "Solo",
+      status: "Completed",
       tech: ["Next.js", "TypeScript", "Tailwind CSS", "Gemini Flash", "GPT-4o-mini"],
       highlights: [
         "Platform-tailored caption styles (Instagram hashtags, LinkedIn professional, X concise).",
@@ -234,6 +315,30 @@ export const PORTFOLIO_DATA = {
       badge: "Healthcare App",
       description: "Multi-role healthcare appointment platform with online payments via Stripe, doctor availability management, and Clerk authentication portals.",
       longDescription: "MediCare connects patients, doctors, and clinic admins. Patients can book slots and pay online via Stripe, while doctors manage their schedules and patient records.",
+      role: "Solo Full-Stack Developer",
+      problemStatement: "Small clinics lack affordable digital booking systems. Patients rely on phone calls, doctors have no centralized schedule view, and payment collection is manual — leading to missed appointments, scheduling conflicts, and revenue leakage.",
+      architecture: [
+        "React frontend with role-based view rendering",
+        "Express.js REST API with route-level middleware",
+        "MongoDB Atlas with Mongoose ODM",
+        "Clerk authentication with multi-role portal support",
+        "Stripe payment integration with webhook confirmation",
+        "Automated receipt generation pipeline"
+      ],
+      challenges: [
+        "Implemented multi-role authentication with Clerk where patients, doctors, and admins each see entirely different dashboards and protected routes.",
+        "Integrated Stripe webhooks to confirm payment status and auto-generate appointment receipts, handling edge cases like payment failures and duplicate bookings.",
+        "Built a real-time doctor availability system that prevents double-booking across concurrent patient sessions."
+      ],
+      metrics: [
+        { label: "User Roles", value: "3" },
+        { label: "Payment Gateway", value: "Stripe" },
+        { label: "Auth Provider", value: "Clerk" },
+        { label: "Database", value: "MongoDB Atlas" }
+      ],
+      duration: "4 weeks",
+      teamSize: "Solo",
+      status: "Completed",
       tech: ["React", "Node.js", "Express", "MongoDB Atlas", "Stripe", "Clerk"],
       highlights: [
         "Multi-role user authentication and protected routing via Clerk.",
